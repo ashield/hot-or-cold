@@ -2,8 +2,14 @@
 <html>
 	<head>
 		
-		 <link rel="stylesheet" href="style.css">
-		 <script type="text/javascript" src="app.js"></script>
+	<link rel="stylesheet" href="style.css">
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+	<script type="text/javascript" src="app.js"></script>
+	
+
+<!-- jquery UI -->
+	<script type="text/javascript" src="http://code.jquery.com/ui/1.10.3/jquery-ui.js"></script>
+
 
 	</head>
 	<body>
@@ -11,12 +17,14 @@
 			<h1>Hot | Cold</h1>
 		</header>
 		
-		<form>
-		<input type="text" name="guess">
-		</form>
+	<div>
+		
+		<input type="text" name="guess" id="guess" maxlength="3" autocomplete="off">
+	</div>
+		<input type="submit" name="submit" id="submit" class="button">
+
 		
 
-<!-- 		<div class="thermometer"></div> -->
 		
 	</body>
 </html>
