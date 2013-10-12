@@ -1,60 +1,137 @@
 // Generate random number onload
+
 var randomNumber = Math.floor(Math.random() * (100 - 1 + 1) + 1);
 console.log (randomNumber);
 
+var temp = '';
+
+
 // Submitting user input
+
 $(document).ready(function (){
   $('#submit').click(submit);
-    $('#guess').keydown(function(e){
+    $('#playerGuess').keydown(function(e){
       if (e.keyCode == 13) {
         submit();
-      };
+      }
     });
+$("#reply").append("<h3>" + temp + "</h3>");
 }); 
 
-// Storing user input
-  function submit(){
-    var guess = $('#guess').val();
-    console.log(guess);
-    validation(guess);
+// Storing user input 
 
-// Reset form   
-    $( "#guess" ).val('')
+  function submit(guess){
+    var guess = document.getElementById("playerGuess").value;
+    console.log(guess);
+    addGuesses (guess);
+    validation(guess);
+    feedback();
+
+
+ // Reset form   
+    $("#playerGuess").val('');
   }
+
+var guesses = [];
+  function addGuesses (guess){
+    guesses.push(guess);
+    
+  }
+
   
 // Validating user input
+
 var shake = function(){
-    $("#guess").addClass('shake animated').delay(1000).queue(function(next){
+    $("#playerGuess").addClass('shake animated').delay(1000).queue(function(next){
     $(this).removeClass('shake animated');
     next();
     });
-  }
+  };
 
   
   var validation = function (guess) {
-    if (this == "" || isNaN(this))
-    shake()
-
-    else if (this > 100 || this <= 0) {
-    shake()
-
+    if (guess === "" || isNaN(guess)){
+    shake();
   }
 
+    else if (guess > 100 || guess <= 0) {
+    shake();
+  }
+
+
 // Compare number guessed back to number generated
+
   if (randomNumber == guess) {
-	alert("Correct!");
+  feedback();
+  temp = "CORRECT";
   randomNumber = Math.floor(Math.random() * (100 - 1 + 1) + 1);
   console.log (randomNumber);
   }
-  else if (randomNumber < guess) {
-	 console.log("Guess lower");
-  }
 
-  else if (randomNumber > guess) {
-	console.log("Guess higher");
+// First guess
+var howClose = function(){
+  if (guess - randomNumber < 0) {
+    temp = "Too Low";
   }
+  if (guess - randomNumber > 0) {
+    temp = "Too High";
+  }
+}; 
+
+if (guesses.length <= 1) {
+  howClose();
 }
 
+// var numericRange = function(){
+// if (Math.abs(guess - randomNumber <=10)) {
+//   console.log ("Boiling");
+// };
+// };
+
+// numericRange();
+
+// Subsequest guesses
+var subsequestGuess = function(){
+  
+  var lastNum = guesses.length;
+  var finalNum = (lastNum - 1);
+  guesses[finalNum];
+
+  var nextGuess = (lastNum - 2);
+  guesses[nextGuess];
+
+
+  var guessDifference =  Math.abs(randomNumber-guesses[finalNum]); 
+  var previousGuessDifference = Math.abs(randomNumber - guesses[nextGuess] );
+  
+
+  if (guessDifference <= previousGuessDifference) {
+    temp = "Getting Hotter";
+
+  }
+  else {
+    temp = "Getting Colder";
+  }
+};
+
+  if (guesses.length >= 2) {
+    subsequestGuess();
+  }
+
+};
+
+// UI
+
+var feedback = function() {
+  $("#reply").empty();
+  $("#reply").append("<h3>" + temp + "</h3>");
+    $("#reply").addClass('pulse animated').delay(1000).queue(function(next){
+    $(this).removeClass('pulse animated');
+    next();
+    });
+
+
+};
 
 
 
