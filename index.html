@@ -1,7 +1,8 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		
+
+	<link rel="stylesheet" href="reset.css">		
 	<link rel="stylesheet" href="style.css">
 	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 	<script type="text/javascript" src="app.js"></script>
@@ -9,21 +10,21 @@
 
 	</head>
 	<body>
+	<div class="hotorcold">
 		
 	<div id="container">
 		<header>
 			<h1><span class="hot">HOT</span> <span class="or">or</span> <span class="cold">COLD</span></h1>
 		</header>
-		
-		<p>Let's play a game... I have a random number between 1 - 100 in my head.</p>
-		<p>Can you guess what the number is? Enter your guess in the box below and I'll let you know how close your getting.</p>
-
+	<div class="instructions">	
+		<p>Let's play a game... I have a random number between 1 - 100 in my head. Can you guess what the number is? Enter your guess in the box below and I'll let you know how close your getting.</p>
+	</div>
 		
 		<input type="text" name="playerGuess" id="playerGuess" maxlength="3" autocomplete="off">
 	
-		<input type="submit" name="submit" id="submit" class="button">
+		<div id="submit" class="button">Submit</div>
 
-		<input type="reset" name="reset" id="reset" class="button">
+		<div id="reset" class="button">Reset</div>
 
 		<div id="reply">
 		</div>
@@ -33,7 +34,7 @@
 		</div>
 
 	</div>
-
+	</div>
 	</body>
 </html>
 

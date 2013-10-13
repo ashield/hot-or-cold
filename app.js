@@ -1,5 +1,15 @@
 // Generate random number onload
 
+// function reset(randomNumber){
+// var randomNumber = Math.floor(Math.random() * (100 - 1 + 1) + 1);
+// console.log (randomNumber);
+
+// var temp = '';
+// var guess = '';
+// };
+
+// reset(randomNumber);
+
 var randomNumber = Math.floor(Math.random() * (100 - 1 + 1) + 1);
 console.log (randomNumber);
 
@@ -11,6 +21,7 @@ var guess = '';
 // Submitting user input
 
 $(document).ready(function (){
+  $('#playerGuess').focus();
   $('#submit').click(submit);
     $('#playerGuess').keydown(function(e){
       if (e.keyCode == 13) {
@@ -23,10 +34,7 @@ $(document).ready(function (){
 
 function submit(guess){
   var guess = document.getElementById("playerGuess").value;
-  console.log(guess);
-  addGuesses(guess);
   validation(guess);
-  comparison(guess);
   feedback();
 
 
@@ -45,17 +53,19 @@ var shake = function(){
   };
 
     var validation = function (guess) {
-    if (guess == "" || isNaN(guess)){
+    if (guess === "" || isNaN(guess)){
     shake();
     temp = "Invalid Guess";
-    // return false;
+    return
   }
 
     else if (guess > 100 || guess <= 0) {
     shake();
     temp = "Invalid Guess";
-    // return false;
+    return
   }
+    else addGuesses (guess);
+        comparison(guess);
 
 };
 
@@ -63,9 +73,6 @@ var shake = function(){
   function addGuesses (guess){
   guesses.push(guess);
   $("#guesses").append("<p>" + guess + "   " + "</p>");
-  if (temp = "Getting Hotter") {
-    guessesColor();
-  };
   }
 
 
@@ -86,16 +93,10 @@ if (guesses.length <= 1) {
   howClose();
 }
 
-// var numericRange = function(guess){
-//  Math.abs(guess - randomNumber)
-//   console.log ("Boiling");
-// };
 
-// numericRange(guess);
-
-// Subsequest guessesß
+// Subsequest guesses
 var subsequestGuess = function(){
-  
+
   var lastNum = guesses.length;
   var finalNum = (lastNum - 1);
   guesses[finalNum];
@@ -109,12 +110,16 @@ var subsequestGuess = function(){
 
   if (guessDifference <= previousGuessDifference) {
     temp = "Getting Hotter";
+    $("#guesses p").last().addClass('hot');
 
   }
   else {
     temp = "Getting Colder";
+    $("#guesses p").last().addClass('cold');
   }
 };
+
+
 
   if (guesses.length >= 2) {
     subsequestGuess();
@@ -122,7 +127,12 @@ var subsequestGuess = function(){
 
 
   if (randomNumber == guess) {
-  temp = "Correct! in" + " " + guesses.length + " " + "attepmts";
+    if (guesses.length == 1) {
+      temp = "WOW, got it first time!";
+    }
+    else temp = "Correct! in" + " " + guesses.length + " " + "tries";
+
+  $("#guesses p").last().addClass('correct');
   // randomNumber = Math.floor(Math.random() * (100 - 1 + 1) + 1);
   // console.log (randomNumber);
   }
@@ -139,11 +149,8 @@ var feedback = function() {
     });
 };
 
-guessesColor = function (){
-  if (temp = "Getting Hotter") {
-     $("#guesses p").addClass("hot");
-  }
-}
+
+
 
 
 
