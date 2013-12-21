@@ -44,6 +44,7 @@ function reset(){
     guess = '';
     $("#reply").empty();
     $("#guesses").empty();
+    $('#playerGuess').attr('disabled',false);
     $('#playerGuess').focus();
 }
  
@@ -124,7 +125,9 @@ function subsequestGuess(){
     else temp = "Correct! in" + " " + guesses.length + " " + "tries";
 
   $("#guesses p").last().addClass('correct');
-    }
+  $('#playerGuess').attr('disabled',true); 
+
+  }
 }
 
 // Guess Feedback
